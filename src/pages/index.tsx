@@ -1,5 +1,6 @@
 import { GetStaticProps } from "next";
 import { ReactElement } from "react";
+import { PostPreview } from "../components";
 import Header from "../components/Header";
 
 import { getPrismicClient } from "../services/prismic";
@@ -27,9 +28,25 @@ interface HomeProps {
 }
 
 export default function Home(): ReactElement {
+  const post = {
+    title: "Como utilizar Hooks",
+    subtitle: "Pensando em sincronização em vez de ciclos de vida.",
+    author: "John Doe",
+    publicationDate: "15 Mar 2021",
+  };
+
   return (
     <>
       <Header />
+      <div className={commonStyles.container}>
+        <div className={styles["posts-container"]}>
+          <PostPreview post={post} />
+          <PostPreview post={post} />
+          <PostPreview post={post} />
+          <PostPreview post={post} />
+          <button type="button">Carregar mais posts</button>
+        </div>
+      </div>
     </>
   );
 }
