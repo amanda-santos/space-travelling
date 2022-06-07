@@ -1,6 +1,82 @@
 {
   "slices": {
     "components": {
+      "another_slice": {
+        "library": "slices",
+        "id": "another_slice",
+        "name": "AnotherSlice",
+        "description": "AnotherSlice",
+        "model": {
+          "id": "another_slice",
+          "type": "SharedSlice",
+          "name": "AnotherSlice",
+          "description": "AnotherSlice",
+          "variations": [
+            {
+              "id": "default",
+              "name": "Default",
+              "docURL": "...",
+              "version": "sktwi1xtmkfgx8626",
+              "description": "AnotherSlice",
+              "primary": {
+                "title": {
+                  "type": "StructuredText",
+                  "config": {
+                    "single": "heading1",
+                    "label": "Title",
+                    "placeholder": "This is where it all begins..."
+                  }
+                },
+                "description": {
+                  "type": "StructuredText",
+                  "config": {
+                    "single": "paragraph",
+                    "label": "Description",
+                    "placeholder": "A nice description of your feature"
+                  }
+                }
+              },
+              "items": {},
+              "imageUrl": "https://images.prismic.io/slice-machine/621a5ec4-0387-4bc5-9860-2dd46cbc07cd_default_ss.png?auto=compress,format"
+            }
+          ]
+        },
+        "mocks": {
+          "default": {
+            "variation": "default",
+            "name": "Default",
+            "slice_type": "another_slice",
+            "items": [],
+            "primary": {
+              "title": [
+                {
+                  "type": "heading1",
+                  "text": "Visualize open-source infrastructures",
+                  "spans": []
+                }
+              ],
+              "description": [
+                {
+                  "type": "paragraph",
+                  "text": "Veniam excepteur officia deserunt nostrud eu ad. Elit ullamco incididunt anim ipsum qui ut incididunt culpa et elit ea velit commodo adipisicing. Consectetur sunt laborum non nulla incididunt exercitation pariatur veniam nisi excepteur ea ut esse ut.",
+                  "spans": []
+                }
+              ]
+            }
+          }
+        },
+        "meta": {
+          "fileName": "index",
+          "extension": "js"
+        },
+        "screenshotPaths": {
+          "default": {
+            "path": "/home/amandasantos/Documents/www/space-travelling/.slicemachine/assets/slices/AnotherSlice/default/preview.png",
+            "width": 800,
+            "height": 55
+          }
+        }
+      },
       "my_slice": {
         "library": "slices",
         "id": "my_slice",

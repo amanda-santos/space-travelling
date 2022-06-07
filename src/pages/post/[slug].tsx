@@ -1,11 +1,9 @@
-// import { GetStaticPaths, GetStaticProps } from "next";
-import { ReactElement } from "react";
-import Header from "../../components/Header";
+import { GetStaticPaths, GetStaticProps } from "next";
 
-// import { getPrismicClient } from '../../services/prismic';
+import { getPrismicClient } from "../../services/prismic";
 
-// import commonStyles from '../../styles/common.module.scss';
-// import styles from './post.module.scss';
+import commonStyles from "../../styles/common.module.scss";
+import styles from "./post.module.scss";
 
 interface Post {
   first_publication_date: string | null;
@@ -28,13 +26,9 @@ interface PostProps {
   post: Post;
 }
 
-export default function Post(): ReactElement {
-  return (
-    <>
-      <Header />
-    </>
-  );
-}
+// export default function Post() {
+//   // TODO
+// }
 
 // export const getStaticPaths = async () => {
 //   const prismic = getPrismicClient({});
