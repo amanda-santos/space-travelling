@@ -1,9 +1,11 @@
+import { useRouter } from "next/router";
 import { ReactElement } from "react";
 
 import styles from "./post-preview.module.scss";
 
 type PostPreviewProps = {
   post: {
+    slug: string;
     title: string;
     subtitle: string;
     author: string;
@@ -12,11 +14,15 @@ type PostPreviewProps = {
 };
 
 export const PostPreview = ({ post }: PostPreviewProps): ReactElement => {
-  const { title, subtitle, author, publicationDate } = post;
+  const router = useRouter();
+
+  const { slug, title, subtitle, author, publicationDate } = post;
 
   return (
     <div className={styles["post-preview-container"]}>
-      <a href="/">{title}</a>
+      <button type="button" onClick={() => router.push(`/post/${slug}`)}>
+        <h3>{title}</h3>
+      </button>
       <p>{subtitle}</p>
       <footer>
         <span>
