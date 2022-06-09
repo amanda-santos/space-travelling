@@ -1,6 +1,8 @@
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { ReactElement } from "react";
 import { Post } from "../../types";
+import { formatDate } from "../../utils/formatDate";
 
 import styles from "./post-preview.module.scss";
 
@@ -14,21 +16,21 @@ export const PostPreview = ({ post }: PostPreviewProps): ReactElement => {
   const { uid, data, first_publication_date } = post;
 
   return (
-    <div className={styles["post-preview-container"]}>
-      <button type="button" onClick={() => router.push(`/post/${uid}`)}>
+    <article className={styles["post-preview-container"]}>
+      <Link href={`/post/${uid}`}>
         <h3>{data.title}</h3>
-      </button>
+      </Link>
       <p>{data.subtitle}</p>
       <footer>
         <span>
           <img src="/icons/calendar.svg" alt="calendar icon" />
-          {first_publication_date}
+          {formatDate(new Date(first_publication_date))}
         </span>
         <span>
           <img src="/icons/user.svg" alt="user icon" />
           {data.author}
         </span>
       </footer>
-    </div>
+    </article>
   );
 };

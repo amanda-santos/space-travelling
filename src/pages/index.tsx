@@ -1,5 +1,5 @@
 import { GetStaticProps } from "next";
-import { ReactElement } from "react";
+import { ReactElement, useState } from "react";
 import { PostPreview } from "../components";
 import Header from "../components/Header";
 
@@ -7,7 +7,6 @@ import { getPrismicClient } from "../services/prismic";
 
 import commonStyles from "../styles/common.module.scss";
 import { Post } from "../types";
-import { formatDate } from "../utils/formatDate";
 import styles from "./home.module.scss";
 
 interface PostPagination {
@@ -19,31 +18,11 @@ interface HomeProps {
   postsPagination: PostPagination;
 }
 
-export default function Home({ postsPagination }: HomeProps): ReactElement {
-  const { next_page, results } = postsPagination;
-
-  console.log(next_page, results);
-
-  return (
-    <>
-      <Header />
-      <div className={commonStyles.container}>
-        <div className={styles["posts-container"]}>
-          {results.map(post => (
-            <PostPreview key={post.uid} post={post} />
-          ))}
-          <button type="button">Carregar mais posts</button>
-        </div>
-      </div>
-    </>
-  );
-}
-
 const formatPosts = (posts): Post[] => {
   return posts.map(post => {
     return {
       uid: post.uid,
-      first_publication_date: formatDate(new Date(post.first_publication_date)),
+      first_publication_date: post.first_publication_date,
       data: {
         title: post.data.title,
         subtitle: post.data.subtitle,
@@ -53,6 +32,46 @@ const formatPosts = (posts): Post[] => {
   });
 };
 
+export default function Home({ postsPagination }: HomeProps): ReactElement {
+  const { next_page, results } = postsPagination;
+
+  const [nextPageURL, setNextPageURL] = useState(next_page);
+  const [posts, setPosts] = useState(results);
+
+  const handleLoadMorePosts = async (url: string): Promise<void> => {
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+
+      setNextPageURL(data.next_page);
+      setPosts([...posts, ...formatPosts(data.results)]);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  return (
+    <>
+      <Header />
+      <div className={commonStyles.container}>
+        <div className={styles["posts-container"]}>
+          {posts.map(post => (
+            <PostPreview key={post.uid} post={post} />
+          ))}
+          {nextPageURL && (
+            <button
+              type="button"
+              onClick={() => handleLoadMorePosts(nextPageURL)}
+            >
+              Carregar mais posts
+            </button>
+          )}
+        </div>
+      </div>
+    </>
+  );
+}
+
 export const getStaticProps: GetStaticProps = async () => {
   const prismic = getPrismicClient({});
   const postsResponse = await prismic.getByType("post", {
@@ -60,7 +79,7 @@ export const getStaticProps: GetStaticProps = async () => {
       field: "document.first_publication_date",
       direction: "desc",
     },
-    pageSize: 5,
+    pageSize: 2,
   });
 
   return {
