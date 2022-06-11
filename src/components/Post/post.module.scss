@@ -1,0 +1,72 @@
+.post-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 1.6rem;
+
+  margin: 6.4rem 40rem 12.8rem 40rem;
+
+  h1 {
+    font-size: 4.8rem;
+  }
+
+  .metadata-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3.2rem;
+
+    font-size: 1.4rem;
+    color: var(--info);
+
+    span {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      svg {
+        margin-right: 0.8rem;
+      }
+    }
+  }
+
+  .content-container {
+    margin-top: 5.6rem;
+
+    h2 {
+      font-size: 3.6rem;
+      margin-bottom: 4rem;
+    }
+
+    p {
+      font-size: 1.6rem;
+      line-height: 2.8rem;
+      margin-bottom: 3.2rem;
+
+      b,
+      i,
+      a {
+        font-weight: bold;
+        font-style: italic;
+        color: var(--highlight);
+      }
+    }
+  }
+
+  @media (max-width: 1280px) {
+    margin: 6.4rem 25.6rem 12.8rem 25.6rem;
+  }
+
+  @media (max-width: 1024px) {
+    margin: 6.4rem 12.8rem 12.8rem 12.8rem;
+  }
+
+  @media (max-width: 768px) {
+    margin: 6.4rem 6.4rem 12.8rem 6.4rem;
+  }
+
+  @media (max-width: 640px) {
+    margin: 6.4rem 4rem 12.8rem 4rem;
+  }
+}

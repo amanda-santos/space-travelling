@@ -6,19 +6,19 @@ import Header from "../components/Header";
 import { getPrismicClient } from "../services/prismic";
 
 import commonStyles from "../styles/common.module.scss";
-import { Post } from "../types";
+import { PostPreview as PostPreviewType } from "../types";
 import styles from "./home.module.scss";
 
 interface PostPagination {
   next_page: string;
-  results: Post[];
+  results: PostPreviewType[];
 }
 
 interface HomeProps {
   postsPagination: PostPagination;
 }
 
-const formatPosts = (posts): Post[] => {
+const formatPosts = (posts): PostPreviewType[] => {
   return posts.map(post => {
     return {
       uid: post.uid,

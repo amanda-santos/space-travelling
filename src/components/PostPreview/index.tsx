@@ -1,18 +1,16 @@
 import Link from "next/link";
-import { useRouter } from "next/router";
 import { ReactElement } from "react";
-import { Post } from "../../types";
+
+import { PostPreview as PostPreviewType } from "../../types";
 import { formatDate } from "../../utils/formatDate";
 
 import styles from "./post-preview.module.scss";
 
 type PostPreviewProps = {
-  post: Post;
+  post: PostPreviewType;
 };
 
 export const PostPreview = ({ post }: PostPreviewProps): ReactElement => {
-  const router = useRouter();
-
   const { uid, data, first_publication_date } = post;
 
   return (
