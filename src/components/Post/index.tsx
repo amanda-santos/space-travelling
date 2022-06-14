@@ -12,7 +12,7 @@ type PostPreviewProps = {
 };
 
 export const Post = ({ post }: PostPreviewProps): ReactElement => {
-  const { data, first_publication_date } = post;
+  const { data, first_publication_date, reading_time } = post;
 
   return (
     <article>
@@ -36,7 +36,8 @@ export const Post = ({ post }: PostPreviewProps): ReactElement => {
             {data.author}
           </span>
           <span>
-            <FiClock size={20} title="clock icon" />4 min
+            <FiClock size={20} title="clock icon" />
+            {reading_time} min
           </span>
         </div>
 

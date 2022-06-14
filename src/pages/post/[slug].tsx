@@ -1,4 +1,5 @@
 import { GetStaticPaths, GetStaticProps } from "next";
+import { RichText } from "prismic-dom";
 import { ReactElement } from "react";
 
 import { Post as PostComponent } from "../../components";
@@ -11,12 +12,42 @@ interface PostProps {
   post: PostType;
 }
 
-const formatPost = (post): PostType => {
+const getReadingTime = (content: PostType["data"]["content"]): number => {
+  const totalPostWords = content.reduce(
+    (
+      total: number,
+      currentValue: {
+        heading: string;
+        body: {
+          text: string;
+        }[];
+      }
+    ) => {
+      const totalHeadWords = currentValue.heading.split(" ").length;
+      const totalBodyWords = RichText.asText(currentValue.body).split(
+        " "
+      ).length;
+
+      return total + totalHeadWords + totalBodyWords;
+    },
+    0
+  );
+
+  const AVERAGE_WORDS_READ_BY_MINUTE = 200;
+
+  const readingTime = Math.ceil(totalPostWords / AVERAGE_WORDS_READ_BY_MINUTE);
+
+  return readingTime;
+};
+
+const formatPost = post => {
   return {
     uid: post.uid,
     first_publication_date: post.first_publication_date,
+    // reading_time: getReadingTime(post.data.content),
     data: {
       title: post.data.title,
+      subtitle: post.data.subtitle,
       banner: {
         url: post.data.banner.url,
       },
@@ -30,7 +61,9 @@ export default function Post({ post }: PostProps): ReactElement {
   return (
     <>
       <Header />
-      <PostComponent post={post} />
+      <PostComponent
+        post={{ ...post, reading_time: getReadingTime(post.data.content) }}
+      />
     </>
   );
 }
@@ -42,19 +75,17 @@ export const getStaticPaths: GetStaticPaths = async () => {
       field: "document.first_publication_date",
       direction: "desc",
     },
-    pageSize: 2,
+    pageSize: 1,
   });
 
-  return {
-    // PATHS: here we add all the pages paths we want to be preloaded for the user;
-    // e.g: most accessed pages, trending pages
-    // paths: [{ params: { slug: "jamstack-geleia-de-javascript-api-e-markup" } }],
-    paths: [],
+  const paths = posts.results.map(post => ({
+    params: {
+      slug: post.uid,
+    },
+  }));
 
-    // FALLBACK: if page isn't already statically loaded, do this...
-    // true = page makes request to server on client-side, after user opens it; causes layout shift; it's not good for SEO.
-    // false = don't do anything, don't send request to server, just show a 404 error.
-    // blocking = page makes request to server inside getStaticProps, and only after it renders page for user; doesn't cause layout shift; good for SEO.
+  return {
+    paths,
     fallback: "blocking",
   };
 };
