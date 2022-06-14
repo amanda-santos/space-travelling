@@ -26,8 +26,8 @@ const getReadingTime = (content: PostType["data"]["content"]): number => {
         }[];
       }
     ) => {
-      const totalHeadWords = currentValue.heading.split(" ").length;
-      const totalBodyWords = RichText.asText(currentValue.body).split(
+      const totalHeadWords = currentValue?.heading?.split(" ").length;
+      const totalBodyWords = RichText?.asText(currentValue.body)?.split(
         " "
       ).length;
 
@@ -43,11 +43,11 @@ const getReadingTime = (content: PostType["data"]["content"]): number => {
   return readingTime;
 };
 
-const formatPost = post => {
+const formatPost = (post): PostType => {
   return {
     uid: post.uid,
     first_publication_date: post.first_publication_date,
-    // reading_time: getReadingTime(post.data.content),
+    reading_time: getReadingTime(post.data.content),
     data: {
       title: post.data.title,
       subtitle: post.data.subtitle,
@@ -77,9 +77,7 @@ export default function Post({ post }: PostProps): ReactElement {
   return (
     <>
       <Header />
-      <PostComponent
-        post={{ ...post, reading_time: getReadingTime(post.data.content) }}
-      />
+      <PostComponent post={post} />
     </>
   );
 }
