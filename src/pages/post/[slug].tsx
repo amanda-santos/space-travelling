@@ -1,4 +1,5 @@
 import { GetStaticPaths, GetStaticProps } from "next";
+import { useRouter } from "next/router";
 import { RichText } from "prismic-dom";
 import { ReactElement } from "react";
 
@@ -7,6 +8,8 @@ import Header from "../../components/Header";
 
 import { getPrismicClient } from "../../services/prismic";
 import { Post as PostType } from "../../types";
+
+import styles from "./post.module.scss";
 
 interface PostProps {
   post: PostType;
@@ -58,6 +61,19 @@ const formatPost = post => {
 };
 
 export default function Post({ post }: PostProps): ReactElement {
+  const router = useRouter();
+
+  if (router.isFallback) {
+    return (
+      <>
+        <Header />
+        <div className={styles["loading-container"]}>
+          <h1>Carregando...</h1>
+        </div>
+      </>
+    );
+  }
+
   return (
     <>
       <Header />
@@ -75,7 +91,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
       field: "document.first_publication_date",
       direction: "desc",
     },
-    pageSize: 1,
+    pageSize: 2,
   });
 
   const paths = posts.results.map(post => ({
@@ -86,7 +102,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   return {
     paths,
-    fallback: "blocking",
+    fallback: true,
   };
 };
 
