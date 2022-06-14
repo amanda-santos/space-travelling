@@ -51,6 +51,7 @@ Technologies used to develop this project:
 
 https://user-images.githubusercontent.com/49074930/173707002-be15aa75-fc52-43c2-a40c-34ed710031b6.mp4
 
+https://user-images.githubusercontent.com/49074930/173707346-d67b7de6-ac63-4f73-9ed7-5126251a1d01.mp4
 
 ## 🤔 How to contribute
 
@@ -87,4 +88,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-Made with 💛 by Amanda Santos <br />
+Made with 💜 by Amanda Santos <br />
