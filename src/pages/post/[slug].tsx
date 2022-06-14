@@ -68,7 +68,7 @@ export default function Post({ post }: PostProps): ReactElement {
       <>
         <Header />
         <div className={styles["loading-container"]}>
-          <h1>Carregando...</h1>
+          <h1>Loading...</h1>
         </div>
       </>
     );

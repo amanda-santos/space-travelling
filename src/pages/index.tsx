@@ -63,7 +63,7 @@ export default function Home({ postsPagination }: HomeProps): ReactElement {
               type="button"
               onClick={() => handleLoadMorePosts(nextPageURL)}
             >
-              Carregar mais posts
+              Load more posts
             </button>
           )}
         </div>

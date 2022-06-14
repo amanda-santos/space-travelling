@@ -269,6 +269,6 @@ describe("Post", () => {
 
     render(<Post post={postProps} />);
 
-    screen.getByText("Carregando...");
+    screen.getByText("Loading...");
   });
 });

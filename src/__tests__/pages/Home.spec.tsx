@@ -188,7 +188,7 @@ describe("Home", () => {
     render(<App postsPagination={postsPagination} />);
 
     screen.getByText("Como utilizar Hooks");
-    const loadMorePostsButton = screen.getByText("Carregar mais posts");
+    const loadMorePostsButton = screen.getByText("Load more posts");
 
     fireEvent.click(loadMorePostsButton);
 
@@ -210,7 +210,7 @@ describe("Home", () => {
 
     screen.getByText("Como utilizar Hooks");
     screen.getByText("Criando um app CRA do zero");
-    const loadMorePostsButton = screen.queryByText("Carregar mais posts");
+    const loadMorePostsButton = screen.queryByText("Load more posts");
 
     expect(loadMorePostsButton).not.toBeInTheDocument();
   });

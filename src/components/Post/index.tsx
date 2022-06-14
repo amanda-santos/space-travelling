@@ -43,11 +43,11 @@ export const Post = ({ post }: PostPreviewProps): ReactElement => {
 
         <div className={styles["content-container"]}>
           {data.content.map(content => (
-            <div>
+            <div key={content.heading}>
               <h2>{content.heading}</h2>
               <div>
                 {content.body.map(body => (
-                  <p>{body.text}</p>
+                  <p key={body.text}>{body.text}</p>
                 ))}
               </div>
             </div>

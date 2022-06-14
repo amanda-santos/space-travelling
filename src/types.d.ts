@@ -21,7 +21,11 @@ export type Post = {
 };
 
 export type PostPreview = {
-  uid: string;
+  uid?: string;
   first_publication_date: string | null;
-  data: Omit<PostData, "content, banner">;
+  data: {
+    title: string;
+    subtitle: string;
+    author: string;
+  };
 };
